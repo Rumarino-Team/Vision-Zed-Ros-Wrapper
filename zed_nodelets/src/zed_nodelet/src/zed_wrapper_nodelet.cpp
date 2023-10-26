@@ -5150,9 +5150,9 @@ void ZEDWrapperNodelet::processDetectedObjects(ros::Time t)
     if(mObjDetModel == sl::OBJECT_DETECTION_MODEL::CUSTOM_BOX_OBJECTS){
     sl::Mat left_image; 
     mZed.retrieveImage(left_image, sl::VIEW::LEFT);
-    custom_objs = yolov7Detector.detect(left_image);
+    std::vector<sl::CustomBoxObjectData> custom_objs = yolov7Detector.detect(left_image);
     mZed.ingestCustomBoxObjects(custom_objs);
-
+  
 
     }
 

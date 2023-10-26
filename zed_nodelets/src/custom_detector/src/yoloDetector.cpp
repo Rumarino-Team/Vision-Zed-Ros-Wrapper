@@ -1,6 +1,5 @@
 #include "yoloDetector.hpp"
 
-namespace zed_nodelets {
 
 /**
  * Convert Zed images to OpenCV images
@@ -86,4 +85,3 @@ std::vector<sl::CustomBoxObjectData> AI::detect_objects(std::vector<cv::Mat> &fr
     return this->detect_objects(vect);
 }
     
-    } // namespace zed_nodelets
