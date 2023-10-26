@@ -135,6 +135,9 @@ link_directories(${CUDA_LIBRARY_DIRS})
 add_definitions(-std=c++11 -Wno-deprecated-declarations)
 set(LINK_LIBRARIES
   ${catkin_LIBRARIES}
+  yolov5
+  yolov7
+  yaml-cpp
   ${ZED_LIBRARIES}
   ${CUDA_LIBRARIES}
   stdc++fs
