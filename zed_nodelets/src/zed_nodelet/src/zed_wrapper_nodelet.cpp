@@ -1091,8 +1091,6 @@ void ZEDWrapperNodelet::readObjDetParams()
 
     NODELET_DEBUG_STREAM(" 'object_detection.model': " << model_str.c_str());
 
-    // Set the YAMLFile of TensorRT inside the Yolomodel
-    yolov7Detector = AI(modelYamlPath);
 
 
     bool matched = false;
@@ -1108,8 +1106,15 @@ void ZEDWrapperNodelet::readObjDetParams()
       {
         mObjDetModel = test_model;
         matched = true;
+
+        if (model_str == "custom_box_objects") {
+        yolov7Detector = AI(modelYamlPath);
+      }
+
         break;
       }
+
+     
     }
     if (!matched)
     {
