@@ -35,7 +35,7 @@
 #include <tf2_ros/transform_listener.h>
 #include <visualization_msgs/Marker.h>
 #include <std_srvs/SetBool.h>
-
+#include <string>
 #include <sl/Camera.hpp>
 #include "yoloDetector.hpp"
 
@@ -481,9 +481,9 @@ private:
   uint64_t mFrameCount = 0;
 
     //Custom Yolov7 Detector
-    Ai yolov7Detector;
+    AI yolov7Detector;
     // Path of the YAML file of the model
-    string modelYamlPath; 
+    std::string modelYamlPath; 
 
   // SDK version
   int mVerMajor;

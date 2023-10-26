@@ -26,7 +26,9 @@ class AI {
 public:
     AI(std::string input_yaml);
     std::vector<sl::CustomBoxObjectData> detect_objects(std::vector<cv::Mat> &frames); //Corrected the return type
-    std::vector<sl::CustomBoxObjectData> AI::detect(<sl::Mat> &image);
+    std::vector<sl::CustomBoxObjectData> AI::detect(sl::Mat &image);
+
+
 
 };
 

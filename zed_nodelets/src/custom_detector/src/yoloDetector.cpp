@@ -41,6 +41,7 @@ AI::AI(std::string input_yaml) {
     Yolov7 = new yolov7(root["yolov7"]);
     Yolov7->LoadEngine();
 }
+
 // All function that return DetectedObjects now will return CustomobjectData
 std::vector<sl::CustomBoxObjectData> AI::detect_objects(std::vector<cv::Mat> &frames) {
     //
@@ -77,7 +78,7 @@ std::vector<sl::CustomBoxObjectData> AI::detect_objects(std::vector<cv::Mat> &fr
 
 
 
- std::vector<sl::CustomBoxObjectData> AI::detect(<sl::Mat> &image) {
+ std::vector<sl::CustomBoxObjectData> AI::detect(sl::Mat &image) {
     // Inference need to be a Vector type. So we are creating
     // a vector with a single element.
     auto vect = std::vector<cv::Mat>();
