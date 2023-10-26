@@ -41,6 +41,22 @@ if (OPENMP_FOUND)
     set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
 endif()
 
+#  OpenCV
+find_package(OpenCV)
+# TensorRT
+set(TENSORRT_ROOT /usr/src/tensorrt/)
+find_path(TENSORRT_INCLUDE_DIR NvInfer.h
+        HINTS ${TENSORRT_ROOT} PATH_SUFFIXES include/)
+message(STATUS "Found TensorRT headers at ${TENSORRT_INCLUDE_DIR}")
+
+set(MODEL_INCLUDE /opt/tensorrt_inference/code/includes)
+set(MODEL_LIB_DIR /opt/tensorrt_inference/bin)
+#YAML reader dependency
+set(YAML_INCLUDE /opt/tensorrt_inference/depends/yaml-cpp/include)
+set(YAML_LIB_DIR /opt/tensorrt_inference/depends/yaml-cpp/libs)
+link_directories(${MODEL_LIB_DIR} ${YAML_LIB_DIR})
+
+
 find_package(catkin REQUIRED COMPONENTS
     roscpp
     image_transport
@@ -96,7 +112,10 @@ set(RGBD_SENS_DEMUX_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/rgbd_sensors_demux_nodel
 # Specify locations of header files.
 set(INCLUDE_DIRS
     ${catkin_INCLUDE_DIRS}
+    ${OpenCV_INCLUDE_DIRS}
+    ${TENSORRT_INCLUDE_DIR}
     ${CUDA_INCLUDE_DIRS}
+    ${YAML_INCLUDE}
     ${ZED_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/tools/include
     ${CMAKE_CURRENT_SOURCE_DIR}/src/zed_nodelet/include

@@ -37,6 +37,7 @@
 #include <std_srvs/SetBool.h>
 
 #include <sl/Camera.hpp>
+#include "yoloDetector.hpp"
 
 #include "sl_tools.h"
 
@@ -478,6 +479,11 @@ protected:
 
 private:
   uint64_t mFrameCount = 0;
+
+    //Custom Yolov7 Detector
+    Ai yolov7Detector;
+    // Path of the YAML file of the model
+    string modelYamlPath; 
 
   // SDK version
   int mVerMajor;

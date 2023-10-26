@@ -1087,12 +1087,17 @@ void ZEDWrapperNodelet::readObjDetParams()
 
     std::string model_str;
     mNhNs.getParam("object_detection/model", model_str);
+    mNhNs.getParam("object_detection/model_yaml", modelYamlPath);
 
     NODELET_DEBUG_STREAM(" 'object_detection.model': " << model_str.c_str());
 
+    // Set the YAMLFile of TensorRT inside the Yolomodel
+    yolov7Detector = AI(modelYamlPath);
+
+
     bool matched = false;
     for (int idx = static_cast<int>(sl::OBJECT_DETECTION_MODEL::MULTI_CLASS_BOX_FAST);
-         idx < static_cast<int>(sl::OBJECT_DETECTION_MODEL::CUSTOM_BOX_OBJECTS); idx++)
+         idx <= static_cast<int>(sl::OBJECT_DETECTION_MODEL::CUSTOM_BOX_OBJECTS); idx++)
     {
       sl::OBJECT_DETECTION_MODEL test_model = static_cast<sl::OBJECT_DETECTION_MODEL>(idx);
       std::string test_model_str = sl::toString(test_model).c_str();
@@ -5142,6 +5147,14 @@ void ZEDWrapperNodelet::processDetectedObjects(ros::Time t)
   objectTracker_parameters_rt.object_class_filter = mObjDetFilter;
 
   sl::Objects objects;
+    if(mObjDetModel == sl::OBJECT_DETECTION_MODEL::CUSTOM_BOX_OBJECTS){
+    sl::Mat left_image; 
+    mZed.retrieveImage(left_image, sl::VIEW::LEFT);
+    custom_objs = yolov7Detector.detect(left_image);
+    mZed.ingestCustomBoxObjects(custom_objs);
+
+
+    }
 
   sl::ERROR_CODE objDetRes = mZed.retrieveObjects(objects, objectTracker_parameters_rt);
 
