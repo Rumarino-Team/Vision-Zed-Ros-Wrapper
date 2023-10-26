@@ -117,6 +117,7 @@ set(INCLUDE_DIRS
     ${CUDA_INCLUDE_DIRS}
     ${YAML_INCLUDE}
     ${ZED_INCLUDE_DIRS}
+    src/custom_detector/include/
     ${CMAKE_CURRENT_SOURCE_DIR}/src/tools/include
     ${CMAKE_CURRENT_SOURCE_DIR}/src/zed_nodelet/include
     ${CMAKE_CURRENT_SOURCE_DIR}/src/rgbd_sensors_sync_nodelet/include
